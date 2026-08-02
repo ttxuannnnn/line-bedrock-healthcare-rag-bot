@@ -4,12 +4,12 @@ import urllib.request
 import base64
 import boto3
 
-AWS_REGION = 'us-west-2'
+AWS_REGION = os.environ.get('AWS_REGION', 'us-west-2')
 
-# 填入你的設定資訊
-KNOWLEDGE_BASE_ID = '7TNGBW60WR'
-DATA_SOURCE_ID = '1SSDFD75H7' 
-S3_BUCKET_NAME = 'long-term-care-manuals' 
+# 優先讀取環境變數，若無則使用預設設定值
+KNOWLEDGE_BASE_ID = os.environ.get('KNOWLEDGE_BASE_ID', '7TNGBW60WR')
+DATA_SOURCE_ID = os.environ.get('DATA_SOURCE_ID', '1SSDFD75H7') 
+S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME', 'long-term-care-manuals') 
 
 bedrock_agent_runtime = boto3.client('bedrock-agent-runtime', region_name=AWS_REGION)
 bedrock_agent = boto3.client('bedrock-agent', region_name=AWS_REGION)
